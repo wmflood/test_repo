@@ -34,13 +34,9 @@ kmncluster <- kmeans(na.omit(nr),
                      nstart = 5, 
                      algorithm="Lloyd")
 
-str(kmncluster)
-#should return an object with the class kmeans
+str(kmncluster) #should return an object with the class kmeans
 
-##Should look into doing this with random forest as well
-
-##Need to set the kmeans to a raster now
-knr <- setValues(ndsi, kmncluster$cluster)
+knr <- setValues(ndsi, kmncluster$cluster) ##Need to set the kmeans to a raster
 knr
 
 ##Plotting out the ndsi --> there is a lot to be desired with the plot
@@ -65,6 +61,9 @@ library(lwgeom)
 
 #Convert to utm and meters for units
 iceland_clc = st_read("CLC18.shp")
+
+is_crs = crs(ndsi)
+
 IS_utm = iceland_clc %>% 
   st_transform_proj(crs = "+proj=utm +zone=27 +datum=WGS84 +units=m +no_defs")
 st_crs(IS_utm)
