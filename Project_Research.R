@@ -75,4 +75,7 @@ ggplot(IS_area, aes(fill=CODE_18), color=NA) +
 
 #Converting the shapefile to raster
 IS_area_sp = as(IS_area, "Spatial") #need to convert to sp object first
-IS_clc_raster = raster(IS_area_sp, crs = crs(ndsi), )
+IS_clc_raster = raster(IS_area_sp, 
+                       ext = e, 
+                       crs = crs(ndsi), 
+                       resolution = res(ndsi)) %>% rasterize()
